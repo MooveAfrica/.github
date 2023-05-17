@@ -13,9 +13,14 @@ jobs:
         uses: actions/checkout@v2
       - name: Check PR Description
         run: |
-          pr_description_escaped=$(echo "*${{ github.event.pull_request.body }}*" | sed 's/"/\\\\"/g')
+          pr_description=$(
+            cat <<END
+            ${{ github.event.pull_request.body }}
+          END
+          )
+          pr_description_escaped=$(printf "%s" "$pr_description" | sed 's/"/\\\"/g')
           echo $pr_description_escaped
-          if echo "${{ github.event.pull_request.body }}" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
+          if echo "$pr_description_escaped" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
               match($0, /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/, arr);
               gsub(/^[[:space:]]+|[[:space:]]+$/, "", arr[1]);
               if (length(arr[1]) < 15) {
