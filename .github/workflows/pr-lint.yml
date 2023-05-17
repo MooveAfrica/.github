@@ -2,6 +2,9 @@ name: PR Description Check
 on:
   pull_request:
     types: [opened, edited]
+  push:
+    branches:
+      - ${{ github.ref }}
 jobs:
   pr-description-check:
     runs-on: ubuntu-latest
@@ -10,9 +13,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Check PR Description
         run: |
-          pr_description_escaped=$(echo "*${{ github.event.pull_request.body }}*" | sed 's/"/\\\\"/g')
-
+          pr_description_escaped=$(echo "${{ github.event.pull_request.body }}" | sed 's/"/\\\\"/g')
           echo "PR description (escaped): $pr_description_escaped"
+          
           if echo "$pr_description_escaped" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
               match($0, /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/, arr);
               gsub(/^[[:space:]]+|[[:space:]]+$/, "", arr[1]);
