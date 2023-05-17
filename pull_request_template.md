@@ -1,5 +1,5 @@
 ## Description
-Type here..
+Type here...
 
 ## Jira Links
 
