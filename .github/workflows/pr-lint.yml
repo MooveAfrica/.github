@@ -2,9 +2,6 @@ name: PR Description Check
 on:
   pull_request:
     types: [opened, edited, syncronize]
-  push:
-    branches:
-      - '*'
 jobs:
   pr-description-check:
     runs-on: ubuntu-latest
