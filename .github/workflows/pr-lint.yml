@@ -15,7 +15,7 @@ jobs:
           pr_description_escaped=$(jq -Rs 'gsub("\""; "\\\"")' <<< "${{ github.event.pull_request.body }}")
           pr_description_escaped="*$pr_description_escaped*"
           echo "PR description(escaped): $pr_description_escaped"
-          if echo "${{ github.event.pull_request.body }}" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
+          if echo "$pr_description_escaped" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
               match($0, /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/, arr);
               gsub(/^[[:space:]]+|[[:space:]]+$/, "", arr[1]);
               if (length(arr[1]) < 15) {
@@ -23,7 +23,7 @@ jobs:
               }
               exit 1;
           }'; then
-            echo "PR description: ${{github.event.pull_request.body}}"
+            echo "PR description: $pr_description_escaped"
             echo "Result: PR description length should be more than 15 characters"
             exit 1
           fi
@@ -31,15 +31,15 @@ jobs:
             echo "PR title does not contain a Jira title in the format: ABCD-1234"
             exit 1
           fi
-          if ! echo "${{ github.event.pull_request.body }}" | grep -Eq '\[\s*x\s*\]'; then
+          if ! echo "$pr_description_escaped" | grep -Eq '\[\s*x\s*\]'; then
             echo "Please tick at least 1 checkbox in the checklist"
             exit 1
           fi
-          if ! echo "${{ github.event.pull_request.body }}" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z]+-[0-9]+'; then
+          if ! echo "$pr_description_escaped" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z]+-[0-9]+'; then
             echo "PR description does not contain a Jira HTTP link"
             exit 1
           fi
-          if ! echo "${{ github.event.pull_request.body }}" | grep -Eq '## Changes Made'; then
+          if ! echo "$pr_description_escaped" | grep -Eq '## Changes Made'; then
             echo "PR description does not contain a 'Changes Made' heading"
             exit 1
           fi
