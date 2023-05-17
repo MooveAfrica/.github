@@ -11,9 +11,9 @@ jobs:
       - name: Check PR Description
         run: |
           pr_description="${{ github.event.pull_request.body }}"
-          pr_description=$(echo "$pr_description" | tr -d '"')
+          pr_description_escaped=$(echo "$pr_description" | sed 's/"/\\"/g')
           
-          if echo "$pr_description" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
+          if echo "$pr_description_escaped" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
               match($0, /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/, arr);
               gsub(/^[[:space:]]+|[[:space:]]+$/, "", arr[1]);
               if (length(arr[1]) < 15) {
@@ -29,15 +29,15 @@ jobs:
             echo "PR title does not contain a Jira title in the format: ABCD-1234"
             exit 1
           fi
-          if ! echo "$pr_description" | grep -Eq '\[\s*x\s*\]'; then
+          if ! echo "$pr_description_escaped" | grep -Eq '\[\s*x\s*\]'; then
             echo "Please tick at least 1 checkbox in the checklist"
             exit 1
           fi
-          if ! echo "$pr_description" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z]+-[0-9]+'; then
+          if ! echo "$pr_description_escaped" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z]+-[0-9]+'; then
             echo "PR description does not contain a Jira HTTP link"
             exit 1
           fi
-          if ! echo "$pr_description" | grep -Eq '## Changes Made'; then
+          if ! echo "$pr_description_escaped" | grep -Eq '## Changes Made'; then
             echo "PR description does not contain a 'Changes Made' heading"
             exit 1
           fi
