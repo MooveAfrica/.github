@@ -13,6 +13,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Check PR Description
         run: |
+          echo "PR description: ${{ github.event.pull_request.body }}"
+          echo " breakk.."
           pr_description_escaped=$(jq -Rs 'gsub("\""; "\\\"")' <<< "${{ github.event.pull_request.body }}")
           pr_description_escaped="*$pr_description_escaped*"
           echo "PR description(escaped): $pr_description_escaped"
