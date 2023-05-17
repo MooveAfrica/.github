@@ -12,9 +12,9 @@ jobs:
         run: |
           echo "PR description: ${{ github.event.pull_request.body }}"
           echo " breakk.."
-          pr_description_escaped=$(jq -Rs 'gsub("\""; "\\\"")' <<< "${{ github.event.pull_request.body//\"/\\\" }}")
-          pr_description_escaped="*$pr_description_escaped*"
-          echo "PR description(escaped) : $pr_description_escaped"
+          pr_description_escaped2=$(jq -Rs 'gsub("\""; "\\\"")' <<< "${{ github.event.pull_request.body//\"/\\\" }}")
+          echo "PR description2(escaped) : $pr_description_escaped2"
+          pr_description_escaped=$(echo "${{ github.event.pull_request.body }}" | sed 's/"/\\"/g')
           if echo "$pr_description_escaped" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
               match($0, /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/, arr);
               gsub(/^[[:space:]]+|[[:space:]]+$/, "", arr[1]);
