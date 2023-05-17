@@ -21,7 +21,7 @@ jobs:
               }
               exit 1;
           }'; then
-            echo "PR description: $pr_description"
+            echo "PR description: $pr_description_escaped"
             echo "Result: PR description length should be more than 15 characters"
             exit 1
           fi
