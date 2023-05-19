@@ -20,7 +20,7 @@ jobs:
           if ! echo "$pr_description_escaped" | grep -Eq '## Description' ||
              ! echo "$pr_description_escaped" | grep -Eq '## Jira Links' ||
              ! echo "$pr_description_escaped" | grep -Eq '## Changes Made'; then
-            echo "PR description is missing one or more these required headings: ## Description|## Jira Links|## Changes Made"
+            echo "PR description is missing one or more these required headings: ## Description, ## Jira Links, ## Changes Made"
             exit 1
           fi
           if echo "$pr_description_escaped" | awk 'BEGIN { RS = "" } /## Description[[:space:]]+(.*)[[:space:]]+## Jira Links/ {
