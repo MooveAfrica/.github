@@ -17,7 +17,9 @@ jobs:
           )
           pr_description_escaped=$(printf "%s" "$pr_description" | sed 's/"/\\\"/g')
           echo $pr_description_escaped
-          if ! echo "$pr_description_escaped" | grep -Eq '## Description|## Jira Links|## Changes Made'; then
+          if ! echo "$pr_description_escaped" | grep -Eq '## Description' ||
+             ! echo "$pr_description_escaped" | grep -Eq '## Jira Links' ||
+             ! echo "$pr_description_escaped" | grep -Eq '## Changes Made'; then
             echo "PR description is missing one or more these required headings: ## Description|## Jira Links|## Changes Made"
             exit 1
           fi
