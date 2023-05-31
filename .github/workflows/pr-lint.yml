@@ -42,7 +42,7 @@ jobs:
             echo "Please tick at least 1 checkbox in the checklist"
             exit 1
           fi
-          if ! echo "$pr_description_escaped" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z]+-[0-9]+'; then
+          if ! echo "$pr_description_escaped" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z0-9]+-[0-9]+'; then
             echo "PR description does not contain a Jira HTTP link"
             exit 1
           fi
