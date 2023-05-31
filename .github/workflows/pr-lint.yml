@@ -34,7 +34,7 @@ jobs:
             echo "PR description length should be more than 15 characters"
             exit 1
           fi
-          if ! echo "${{ github.event.pull_request.title }}" | grep -E '[A-Z]+-[0-9]+'; then
+          if ! echo "${{ github.event.pull_request.title }}" | grep -E '[A-Z0-9]+-[0-9]+'; then
             echo "PR title does not contain a Jira title in the format: ABCD-1234"
             exit 1
           fi
@@ -42,7 +42,7 @@ jobs:
             echo "Please tick at least 1 checkbox in the checklist"
             exit 1
           fi
-          if ! echo "$pr_description_escaped" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z]+-[0-9]+'; then
+          if ! echo "$pr_description_escaped" | grep -E 'https?:\/\/(.*).atlassian.net\/browse\/[A-Z0-9]+-[0-9]+'; then
             echo "PR description does not contain a Jira HTTP link"
             exit 1
           fi
