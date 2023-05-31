@@ -17,4 +17,6 @@ Please make sure to review the following checklist before submitting your PR:
 - [ ] I have followed the coding style and naming conventions used in this project.
 - [ ] I have added any necessary documentation for my changes.
 
+<sub><sup> Note: type x within the checkbox to mark it as a tick.</sup></sub>
+
 ## Images / Additional Information
