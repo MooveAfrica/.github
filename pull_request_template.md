@@ -5,16 +5,18 @@ Type here..
 
 
 ## Changes Made
-Please list the specific changes you made in bullet points.
+[//]: <Please list the specific changes you made in bullet points.>
+
 -
 -
 
 ## Checklist
-Please make sure to review the following checklist before submitting your PR:
-
+[//]: <Please make sure to review the following checklist before submitting your PR:>
 - [ ] I have tested my changes locally and they are working as intended.
 - [ ] I have added any necessary unit/Integration tests for my changes.
 - [ ] I have followed the coding style and naming conventions used in this project.
 - [ ] I have added any necessary documentation for my changes.
+
+[//]: <Note: type x within the checkbox [] to mark it as a tick, without any space>
 
 ## Images / Additional Information
