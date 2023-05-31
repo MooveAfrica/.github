@@ -6,6 +6,7 @@ Type here..
 
 ## Changes Made
 [//]: <Please list the specific changes you made in bullet points.>
+
 -
 -
 
@@ -16,6 +17,6 @@ Type here..
 - [ ] I have followed the coding style and naming conventions used in this project.
 - [ ] I have added any necessary documentation for my changes.
 
-[//]: <Note: type x within the checkbox to mark it as a tick. Like this: [x], without any space>
+[//]: <Note: type x within the checkbox [] to mark it as a tick, without any space>
 
 ## Images / Additional Information
