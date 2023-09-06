@@ -12,7 +12,7 @@ jobs:
         run: |
           github_event=$(
             cat <<END
-            ${{ github.event }}
+            ${{ github.event.to_string }}
           END
           )
           echo "github event:"
