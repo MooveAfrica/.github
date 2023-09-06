@@ -10,6 +10,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Check PR Description
         run: |
+          github_event=$(
+            cat <<END
+            ${{ github.event }}
+          END
+          )
+          echo "github event:"
+          echo $github_event
           pr_description=$(
             cat <<END
             ${{ github.event.pull_request.body }}
